@@ -62,7 +62,7 @@ body{
     }
     .hero {
         height: 60vh;
-        background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1775184017421-f27abfea4b49?q=80&w=782&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D.jpg');
+        background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://picsum.photos/1200/300');
         background-size: cover;
         background-position: center;
         display: flex;
@@ -74,5 +74,11 @@ body{
     }
     .hero h1 {
         font-size: 3rem;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        background-image: url('https://picsum.photos/1200/300');
+        background-size: cover;
+        background-position: center;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: none;
     }
