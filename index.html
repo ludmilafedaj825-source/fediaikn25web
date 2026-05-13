@@ -3,35 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> My portfolio</title>
+    <title>Portfolio</title>
     <link rel="stylesheet" href="assets\css/normalize.css">
     <link rel="stylesheet" href="assets\css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <title>Portfolio</title>
 </head>
-
 <body>
     
     <header class="header">
-        <h1 class="hero-title">Portfolio</h1> 
+        <h1 class="hero-title">Portfolio</h1>
         <nav class ="main-nav">
-            <ul class="nav-list">
-                <li><a href="#"> Home </a></li>
+            <ul class="nav-list"> 
+                <li ><a href="index.html" > Home </a></li>
                 <li><a href="about.html"> About me </a> </li>
-                <li><a href="#gallery"> Gallery </a></li>
-                <li><a href="#contacts"> Contacts </a></li>
+                <li><a href="#gallery" > Gallery </a></li>
+                <li><a href="#contacts" > Contacts </a></li>
+                <li><a href="register.html">Registration</a></li>
             </ul>
         </nav>
     </header>
-
+    
     <img src="https://plus.unsplash.com/premium_photo-1721926057308-2aa7ce470776?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         class="hero-image" alt="Main photo"/>
 
     <section class="gallery" id="gallery"> 
-        <h2>My progects</h2>
+        <h2>Progects</h2>
         <div class="progect">
-            <div class="progect-сard"> 
+            <div class="progect-card"> 
                 <img src="https://picsum.photos/300/200?random=1"/>
                 <div class="progect-item">
                     <h3>Progect 1</h3>
@@ -60,6 +59,72 @@
 
         </div>
         </section>
+
+        <main class="page-layout">
+        <aside class="sidebar">
+            <h3>Фільтри</h3>
+            <ul>
+                <li><label><input type="checkbox">Проєкти</label></li>
+                <li><label><input type="checkbox">Досягнення</label></li>
+                <li><label><input type="checkbox">Цілі</label></li>
+            </ul>
+        </aside>
+        
+        <section class="progect-content">
+            <h2> Мої останні досягнення</h2>
+            <div class="progect"> 
+                <div class="progect-card"> 
+                    <img src="https://picsum.photos/300/200?random=4"/>
+                    <div class="progect-item">
+                        <h3> Досягнення 1 </h3>
+                        <p> Виконано лабараторну роботу №1</p>
+                        <a href="#" class="btn1">View </a>
+                    </div>
+                </div>
+                <div class="progect-card">
+                    <img src="https://picsum.photos/300/200?random=5"/>
+                    <div class="progect-item">
+                        <h3> Досягнення 2 </h3>
+                        <p> Виконано лабараторну роботу №1</p>
+                        <a href="#" class="btn1">View </a>
+                    </div>
+                </div>
+                <div class="progect-card">
+                    <img src="https://picsum.photos/300/200?random=6"/>
+                    <div class="progect-item">
+                        <h3> Досягнення 3 </h3>
+                        <p> Виконано лабараторну роботу №1</p>
+                        <a href="#" class="btn1">View </a>
+                    </div>
+                </div>
+            </div>
+
+            <h2> Мої наступні цілі </h2>
+            <div class="progect"> 
+                <div class="progect-item">
+                    <h3> Ціль 1 </h3>
+                    <p> Виконано лабараторну роботу №2</p>
+                    <a href="#" class="btn1">View </a>
+                </div>
+                <div class="progect-item">
+                    <h3> Ціль 2 </h3>
+                    <p> Виконано лабараторну роботу №2</p>
+                    <a href="#" class="btn1">View </a>
+                </div>
+                <div class="progect-item">
+                    <h3> Ціль 3 </h3>
+                    <p> Виконано лабараторну роботу №2</p>
+                    <a href="#" class="btn1">View </a>
+                </div>
+                <div class="progect-item">
+                    <h3> Ціль 4 </h3>
+                    <p> Виконано лабараторну роботу №2</p>
+                    <a href="#" class="btn1">View </a>
+                </div>
+            </div>
+    </section>      
+    </main>
+
     <aside class="aside">
         <h2> Skills </h2>
         <ul>
@@ -81,7 +146,7 @@
             <input type="email" name="email" id="email"/>
             <input type="button" class="btn" value="Subscribe"/>
         </form>
-        <p>FOOTER: &copy; 2026 CS-25 </p>
+        <p class="footer1">FOOTER: &copy; 2026 CS-25 </p>
     </footer>
 
 </body>

@@ -6,7 +6,6 @@
         list-style: none;
         border: 0;
         outline: none; 
-        text-align: justify;
     }
 
     :root {
@@ -33,6 +32,7 @@
 
     header {
         background-color: var(--bg-color);
+        position: sticky;
     }
 
     .header{
@@ -50,16 +50,6 @@
         padding: 0 24px;
     }
 
-    .nav-list ul {
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        list-style: none;
-        gap: 0;
-    }
-
     .main-nav ul {
         display: flex; 
         gap: 2rem;
@@ -67,7 +57,7 @@
         flex-wrap: wrap;
     }
 
-    h1, h2, h3 { margin-bottom: 40px; }
+    h1, h2, h3 { margin-bottom: 20px; }
 
     a{
         text-decoration: none;
@@ -82,19 +72,7 @@
         color: var(--text-light);
     }
 
-    .btn{
-        display: inline-block;
-        padding: 12px 24px;
-        background-color: var(--primary-color);
-        color:#FFFFFF;
-        border-radius: 8px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 1px; 
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 6px rgba(3, 16, 44, 0.2);
-        align-items: center;
-    }
+    .btn,
     .btn1{
         display: inline-block;
         padding: 12px 24px;
@@ -106,10 +84,12 @@
         letter-spacing: 1px; 
         transition: all 0.3s ease;
         box-shadow: 0 4px 6px rgba(3, 16, 44, 0.2);
-        justify-content: space-around;
+        text-align: center;
+        width: fit-content;
     }
 
-    .btn:hover {
+    .btn:hover,
+    .btn1:hover {
         background-color:  var(--primary-hover);
         transform: translateY(-2px);
         box-shadow: 0 6px 12px rgba(37, 99, 235, 0.3);
@@ -127,16 +107,10 @@
         text-align: center;
         color: white;
         width: 100%;
-        object-fit: cover;
     }
-
-    .hero-title h1 {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        list-style: none;
-        gap: 0;
+    
+    .hero-image h1{
+        margin-bottom: 2rem;
     }
 
     .gallery{  
@@ -146,7 +120,7 @@
     .gallery h2{
         text-align: center;
         color: var(--text-light);
-        margin-bottom: auto;
+        margin-bottom: 25px;
     }
 
     .progect{
@@ -156,49 +130,97 @@
         gap:40px;
 
     }
+
     .progect-card{
         display: flex;
         flex-direction: column;
-        margin-bottom: auto;
+        gap:15px;
         color: var(--text-light);
         width: calc(25% - 20px);
         min-width: 250px;
         padding: 15px;
     }
-    .project-card img {
+
+    .progect-card img {
         width: 100%;
         height: 180px;
+      
         object-fit: cover;
     }
-    .progect .progect-item {
+    .progect-item {
         display: flex;
         flex-direction: column;
+        gap: 10px;
+        padding: 20px;
+        color: var(--text-light);
     }
-    aside{
+
+    .progect-contect{
+        display: flex;
+        flex-direction: column;
+        gap:25px
+    }
+
+    .progect-content h2{
+        text-align: center;
+        color:  var(--text-light);
+    }
+
+    aside.aside{
         padding: 40px;
         background-color: var(--bg-color);
     }
-    aside h2{
-        display: flex;
+
+    aside.aside h2{
         flex-wrap: wrap;
-        justify-content: center;
-        margin-bottom: auto;
+        text-align: center;
+        margin-bottom: 25px;
         color: var(--text-light);
     }
-    aside ul{
+
+    aside.aside ul{
         display: flex;
         flex-wrap: wrap;
-        padding: auto;
-        justify-content: space-between;
+        gap: 10px;
+        justify-content: center;
 
     }
+
     .footer{
         background-color: var(--text-light);
         color: white;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
-        padding: auto;
         align-items: flex-start;
         gap: 40px;
+        padding: 40px 5%;
+    }
+
+    .footer ul{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    @media (max-width: 768px) {
+        .page-layout {
+            flex-direction: column;
+        }
+ 
+        .sidebar {
+            width: 100%;
+        }
+ 
+        .progect-card {
+            width: 100%;
+        }
+ 
+        .hero-image h1 {
+            font-size: 2rem;
+        }
+ 
+        .footer {
+            flex-direction: column;
+        }
     }
