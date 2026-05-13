@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> My Portfolio</title>
     <link rel="stylesheet" href="assets\css/normalize.css">
-    <link rel="stylesheet" href="assets\css/form.css>
+    <link rel="stylesheet" href="assets\css/form.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
@@ -15,7 +15,7 @@
         <h1 class="hero-title">Portfolio</h1>
         <nav class ="main-nav">
             <ul class="nav-list"> 
-                <li ><a href="index.html" > Home </a></li>
+                <li><a href="index.html" > Home </a></li>
                 <li><a href="about.html"> About us </a> </li>
                 <li><a href="#gallery" > Gallery </a></li>
                 <li><a href="#contacts" > Contacts </a></li>
@@ -24,7 +24,7 @@
         </nav>
     </header>
     <main class="page-layout">
-        <h2>Registation</h2>
+        <h2>Registration</h2>
         <form action="#" method="POST" class="checkout-from">
             <fieldset>
                 <legend>1. Особисті дані</legend>
@@ -37,11 +37,18 @@
                         required
                         placeholder="Іванов Іван Іванович"
                     />
-                    </div>
+                </div>
+
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required />
+                    <input type="email" 
+                            id="email"
+                            name="email" 
+                            required
+                            placeholder="your@email.com"
+                     />
                 </div>
+
                 <div class="form-group">
                     <label for="phone">Телефон:</label>
                     <input
@@ -57,9 +64,25 @@
             </fieldset>
 
             <fieldset>
-                <textarea>Підписуючись, ви приймаєте політику сайту</textarea>
-                <input type="checkbox" required>
+                <textarea>Підтвердити</textarea>
+                <div class="form-group">
+                    <label for="policy-text">Умови підписки</label>
+                    <textarea
+                        id="policy-text"
+                        name="policyText"
+                        rows="2"
+                        readonly>Погоджуючись, ви приймаєте політику конфіденційності та умови використання сайту</textarea>
+                </div>
+                
+                <div class="form-group-policy">
+                     <input type="checkbox" id="Policy" name="Policy" required>
+                     <label for="Policy"> Я прочитав(-ла) та приймаю
+                        <a href="#">політика сайту</a>
+                     </label>
+                </div>
+
                 <button type="submit" class="btn1">Підтвердити підписку</button>
+
             </fieldset>
         </form>       
     </main>
