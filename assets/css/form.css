@@ -104,6 +104,12 @@
         box-shadow: 0 6px 12px rgba(37, 99, 235, 0.3);
     }
 
+    .btn1-type{
+        display: flex;
+        align-items: center;
+        gap: 0.5 rem;
+    }
+
      .page-layout {
         display: flex;
         gap: 24px;
@@ -167,15 +173,41 @@
     }
 
     @media(max-width: 768px){
-        .header {
+    .page-layout {
+        flex-direction: column;
+        padding: 1rem;
+    }
+ 
+    .sidebar {
+        width: 100%;
+    }
+
+    h2{
+        font-size: 1rem;
+    }
+ 
+    .hero-image h1 {
+        font-size: 2rem;
+    }
+ 
+    .footer {
+        flex-direction: column;
+    }
+
+    .menu-toggle{
+        display: block;
+    }
+        .main-nav ul{
+        display: none;
+    }
+
+    .nav-list{
+        display: none
+    }
+    .header {
         flex-direction: column;
         gap:40px;
         padding: 20px;
-    }
- 
-    .nav-list {
-        gap: 40px;
-        justify-content: center;
     }
  
     .checkout-form {
@@ -184,5 +216,5 @@
  
     .footer {
         flex-direction: column;
-    }
+    } 
     }
