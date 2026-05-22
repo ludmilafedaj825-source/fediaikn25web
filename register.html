@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> My Portfolio</title>
+    <link rel="stylesheet" href="assets\css/normalize.css">
+    <link rel="stylesheet" href="assets\css/form.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <header class="header">
+        <h1 class="hero-title">Portfolio</h1>
+        <nav class ="main-nav">
+            <ul class="nav-list"> 
+                <li><a href="index.html" > Home </a></li>
+                <li><a href="about.html"> About us </a> </li>
+                <li><a href="#gallery" > Gallery </a></li>
+                <li><a href="#contacts" > Contacts </a></li>
+                <li><a href="register.html">Registration</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="page-layout">
+        <form action="#" method="POST" class="checkout-from">
+            <fieldset>
+                <legend>1. Особисті дані</legend>
+                <div class="form-group">
+                    <label for="fullName">ПІБ:</label>
+                    <input
+                        type="text"
+                        id="fullName"
+                        name="fullName"
+                        required
+                        placeholder="Іванов Іван Іванович"
+                    />
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" 
+                            id="email"
+                            name="email" 
+                            required
+                            placeholder="your@email.com"
+                     />
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Телефон:</label>
+                    <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        pattern="[\+]\d{2}\d{10}"
+                        placeholder="+380991234567"
+                        required
+                        title="Формат: +380XXXXXXXXX"
+                />
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <textarea>Підтвердити</textarea>
+                <div class="form-group">
+                    <label for="policy-text">Умови підписки</label>
+                    <textarea
+                        id="policy-text"
+                        name="policyText"
+                        rows="2"
+                        readonly>Погоджуючись, ви приймаєте політику конфіденційності та умови використання сайту</textarea>
+                </div>
+                
+                <div class="form-group-policy">
+                     <input type="checkbox" id="Policy" name="Policy" required>
+                     <label for="Policy"> Я прочитав(-ла) та приймаю
+                        <a href="#">політика сайту</a>
+                     </label>
+                </div>
+
+                <button type="submit" class="btn1 btn1-type">
+                   <svg 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor" 
+                    class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
+                    </svg>
+                Підтвердити підписку</button>
+
+            </fieldset>
+        </form>       
+    </main>
+
+    <footer id="footer" class="footer">
+        <ul>
+            <li> Phone: +380967823945 </li>
+            <li> Email: luhjfj@gmail.com </li>
+            <li> Adress: ifols mfjols fj 24</li>
+        </ul>
+        <form action="">
+            <label for="email">Your email: </label>
+            <input type="email" name="email" id="email"/>
+            <input type="button" class="btn" value="Subscribe"/>
+        </form>
+        <p class="footer1">FOOTER: &copy; 2026 CS-25 </p>
+    </footer>
+
+</body>
+</html>
