@@ -216,7 +216,7 @@
     }
  
     .nav-list{
-        display: none
+        display: none;
     }
     .header {
         flex-direction: column;
