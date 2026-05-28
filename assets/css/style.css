@@ -208,7 +208,7 @@
 
     aside.aside ul{
         display: grid;
-        flex-wrap: wrap;
+        grid-template-columns: 250px 1fr;
         gap: 10px;
         justify-content: center;
 
