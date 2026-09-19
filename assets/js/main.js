@@ -47,7 +47,7 @@ const products=[
     {
         id: 6,
         title: "Математика 4 клас 2026",
-        author: "(Богданович)",
+        author: "Богданович",
         price: 500,
         category: "Підручники",
         image: "image6.jpg",
@@ -56,7 +56,7 @@ const products=[
     {
         id: 7,
         title: "Маленький принц",
-        author: "Антуан де Сент-Экзюпери",
+        author: "Антуан де Сент-Екзюпері",
         price: 300,
         category: "Дитяча література",
         image: "image7.jpg",
@@ -64,7 +64,7 @@ const products=[
 
     {
         id: 8,
-        title: "Подарунковий набір \"Відьмак\"",
+        title: "Подарунковий набір «Відьмак»",
         author: "Анджей Сапковський",
         price: 2000,
         category: "Подарункові набори",
@@ -72,7 +72,9 @@ const products=[
     },
 ];
 
-const container = document.querySelector(".products-container");
+let cart = [];
+
+const container = document.querySelector(".products-grid");
 
 const htmlString = products
 .map((product) => {
@@ -87,3 +89,46 @@ const htmlString = products
 }).join("");
 
 container.innerHTML = htmlString;
+
+
+container.addEventListener("click", (event) => {
+  if (event.target.classList.contains("btn-buy")) {
+    const productId = Number(event.target.dataset.id);
+
+    const selectedProduct = products.find((p) => p.id === productId);
+
+    addToCart(selectedProduct);
+  }
+});
+
+function addToCart(product) {
+    const existingItem = cart.find((item)=> item.id === product.id);
+
+    if(existingItem){
+        existingItem.quantity +=1;
+    }
+    else{
+        cart.push({...product, quantity: 1});
+    }
+    updateUI();// оновлення екрану
+}
+
+function calculateTotal() {
+    return cart.reduce(
+        (total, item) => total+item.price * item.quantity,
+        0,
+    ); //підрахунок суми
+}
+
+function updateUI(){
+    const cartCounter = document.querySelector(".cart-counter");
+
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+    if(cartCounter){
+        cartCounter.textContent = totalItems;
+    }
+
+    console.log("Поточний кошик: ", cart);
+    console.log("Загальна сума: ", calculateTotal(), "грн");
+}
