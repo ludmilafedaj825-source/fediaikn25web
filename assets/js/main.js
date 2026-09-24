@@ -74,7 +74,7 @@ const products=[
 
 let cart = [];
 
-const container = document.querySelector(".products-grid");
+const container = document.getElementById("product-container");
 
 const htmlString = products
 .map((product) => {
@@ -82,6 +82,7 @@ const htmlString = products
         <article class="product-card">
             <img src="${product.image}" alt="${product.title}">
             <h3>${product.title}</h3>
+            <p class="author">Автор: ${product.author || "Невідомий автор"}</p>
             <p class="price"> ${product.price} грн </p>
             <button class="btn btn-buy" data-id="${product.id}"> Купити </button>
         </article>
