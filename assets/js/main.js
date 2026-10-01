@@ -76,22 +76,6 @@ let cart = [];
 
 const container = document.getElementById("product-container");
 
-const htmlString = products
-.map((product) => {
-    return `
-        <article class="product-card">
-            <img src="${product.image}" alt="${product.title}">
-            <h3>${product.title}</h3>
-            <p class="author">Автор: ${product.author || "Невідомий автор"}</p>
-            <p class="price"> ${product.price} грн </p>
-            <button class="btn btn-buy" data-id="${product.id}"> Купити </button>
-        </article>
-    `;
-}).join("");
-
-container.innerHTML = htmlString;
-
-
 container.addEventListener("click", (event) => {
   if (event.target.classList.contains("btn-buy")) {
     const productId = Number(event.target.dataset.id);
@@ -133,3 +117,48 @@ function updateUI(){
     console.log("Поточний кошик: ", cart);
     console.log("Загальна сума: ", calculateTotal(), "грн");
 }
+function fetchProducts(){
+    return new Promise((resolve, reject)=>{
+        setTimeout(()=>{
+            resolve(products);// штучне стимулювання позитивної відповіді
+
+            //reject(new Error("Помилка при завантаженні товарів"));
+        }, 1500);
+    });
+}
+
+async function initShop(){
+    const loader = document.getElementById("loader");
+
+    loader.classList.remove("hidden");
+    container.innerHTML="";//очищення сітки
+
+    try{
+        //чекаємо півтори секунди
+        const data = await fetchProducts();
+
+        //спінер хоавається, якщо відповідь від сервера позитивна
+        loader.classList.add("hidden");
+            //картки товарів
+        const htmlString = data
+        .map((product) => {
+            return `
+            <article class="product-card">
+                <img src="${product.image}" alt="${product.title}">
+                <h3>${product.title}</h3>
+                <p class="author">Автор: ${product.author || "Невідомий автор"}</p>
+                <p class="price"> ${product.price} грн </p>
+                <button class="btn btn-buy" data-id="${product.id}"> Купити </button>
+            </article>
+            `;
+        }).join("");
+
+        container.innerHTML = htmlString;
+    } catch (error){
+        //якщо сталася помилка сервера, реджект
+        loader.classList.add("hidden");
+        container.innerHTML = `<p class="error">Помилка: ${error.message}</p>`;
+    }
+}
+
+initShop();
