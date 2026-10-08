@@ -5,7 +5,7 @@ const products=[
         author: "Ілларіон Павлюк",
         price: 700,
         category: "Художня література",
-        image: "image1.jpg",
+        image: "https://placehold.co/300x200",
     },
 
     {
@@ -14,7 +14,7 @@ const products=[
         author: "",
         price: 200,
         category: "Канцелярія",
-        image: "image2.jpg",
+        image: "https://placehold.co/300x200",
     },
 
     {
@@ -23,7 +23,7 @@ const products=[
         author: "Цукумідзу",
         price: 180,
         category: "Манга",
-        image: "image3.jpg",
+        image: "https://placehold.co/300x200",
     },
 
     {
@@ -32,7 +32,7 @@ const products=[
         author: "Ювал Ной Харарі",
         price: 600,
         category: "Наукова література",
-        image: "image4.jpg",
+        image: "https://placehold.co/300x200",
     },
 
     {
@@ -41,7 +41,7 @@ const products=[
         author: "",
         price: 250,
         category: "Навчальні матеріали",
-        image: "image5.jpg",
+        image: "https://placehold.co/100x200",
     },
 
     {
@@ -50,7 +50,7 @@ const products=[
         author: "Богданович",
         price: 500,
         category: "Підручники",
-        image: "image6.jpg",
+        image: "https://placehold.co/100x200",
     },
 
     {
@@ -59,7 +59,7 @@ const products=[
         author: "Антуан де Сент-Екзюпері",
         price: 300,
         category: "Дитяча література",
-        image: "image7.jpg",
+        image: "https://placehold.co/100x200",
     },
 
     {
@@ -68,7 +68,7 @@ const products=[
         author: "Анджей Сапковський",
         price: 2000,
         category: "Подарункові набори",
-        image: "image8.jpg",
+        image: "https://placehold.co/100x200",
     },
 ];
 
@@ -107,16 +107,15 @@ function calculateTotal() {
 
 function updateUI(){
     const cartCounter = document.querySelector(".cart-counter");
-
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
     if(cartCounter){
         cartCounter.textContent = totalItems;
     }
 
-    console.log("Поточний кошик: ", cart);
-    console.log("Загальна сума: ", calculateTotal(), "грн");
+    renderCartItems(); // Оновлюємо список товарів у кошику
 }
+
 function fetchProducts(){
     return new Promise((resolve, reject)=>{
         setTimeout(()=>{
@@ -161,4 +160,87 @@ async function initShop(){
     }
 }
 
+const cartButton = document.querySelector(".btn-cart"); // Ваша кнопка в Header з SVG (ПР №7)
+const cartOverlay = document.getElementById("cartOverlay");
+const closeBtn = document.getElementById("closeCartBtn");
+const cartTotalSum = document.getElementById("cartTotalSum");
+
+// Функція відкриття
+function openCartModal() {
+  cartOverlay.classList.remove("hidden");
+  renderCartItems(); // Оновлюємо список перед тим як показати
+}
+
+// Функція закриття
+function closeCartModal() {
+  cartOverlay.classList.add("hidden");
+}
+
+// Вішаємо слухачі
+cartButton.addEventListener("click", openCartModal);
+closeBtn.addEventListener("click", closeCartModal);
+
+// Закриття кліком по темному фону (оверлею) повз вікно
+cartOverlay.addEventListener("click", (event) => {
+  if (event.target === cartOverlay) {
+    closeCartModal();
+  }
+});
+
+function renderCartItems() { 
+    const cartItemsContainer = document.getElementById("cartItemsContainer");
+
+    if (cart.length === 0) {
+        cartItemsContainer.innerHTML = `<p class="cart-empty">Кошик порожній</p>`;
+        cartTotalSum.textContent = calculateTotal(); // 0
+        return;
+    }
+    cartItemsContainer.innerHTML = ""; // Очищаємо контейнер перед рендером
+
+    cart.forEach((item) =>{
+        const cartItem = document.createElement("div");
+        cartItem.classList.add("cart-item");
+        cartItem.innerHTML = `
+             <img src="${item.image}" alt="${item.title}" width="60" height="60">
+            <p>${item.title} — ${item.price} грн × ${item.quantity}</p>
+            <div class="cart-item-controls">
+                <button class="qty-btn" type="button" data-action="decrease" data-id="${item.id}" aria-label="Зменшити кількість: ${item.title}">−</button>
+                <span>${item.quantity}</span>
+                <button class="qty-btn" type="button" data-action="increase" data-id="${item.id}" aria-label="Збільшити кількість: ${item.title}">+</button>
+            </div>
+            <p>${item.price * item.quantity} грн</p>
+        `;
+        cartItemsContainer.appendChild(cartItem);
+    });
+
+    cartTotalSum.textContent = calculateTotal();
+}
+
+document.getElementById("cartItemsContainer").addEventListener("click", (event) => {
+    const button = event.target.closest(".qty-btn");
+
+    if (!button) {
+        return;
+    }
+
+    const productId = Number(button.dataset.id);
+    const cartItem = cart.find((item) => item.id === productId);
+
+    if (!cartItem) {
+        return;
+    }
+
+    if (button.dataset.action === "increase") {
+        cartItem.quantity += 1;
+    } else if (button.dataset.action === "decrease") {
+        cartItem.quantity -= 1;
+
+        if (cartItem.quantity === 0) {
+            cart = cart.filter((item) => item.id !== productId);
+        }
+    } else {
+        return;
+    }
+    updateUI();
+});
 initShop();
