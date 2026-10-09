@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bookoens</title>
+    <title>Miscellany</title>
     <link rel="stylesheet" href="assets/css/normalize.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,7 +23,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
             </svg>
         </button>
-        <h1 class="hero-title">Bookoens</h1>
+        <h1 class="hero-title">Miscellany</h1>
         <button class="btn-cart" aria-label="Відкрити кошик">
                    <svg width="24" height="24"
                         xmlns="http://www.w3.org/2000/svg"
@@ -49,30 +49,27 @@
     
     <section class="promo">
         <div class="promo-content"> 
-            <span class="promo-badge"> Акція </span>
-            <h2> -10% на книжки української літератури</h2>
-            <a href="catalog.html" class="btn">До каталогу</a>
+            <span class="promo-badge"></span>
+            <h2>Everything you never knew you needed</h2>
+            <a href="catalog.html" class="btn">Go to Catalog</a>
         </div>
     </section>
 
     <main class="page-layout">
         <aside class="sidebar">
-            <h3>Фільтри</h3>
+            <h3>Filters</h3>
             <ul>
-                <li><label><input type="checkbox">Художня література</label></li>
-                <li><label><input type="checkbox">Дитяча література</label></li>
-                <li><label><input type="checkbox">Навчальні матеріали</label></li>
-                <li><label><input type="checkbox">Канцелярія</label></li>
-                <li><label><input type="checkbox">Подарункові набори</label></li>
-                <li><label><input type="checkbox">Манга</label></li>
-                <li><label><input type="checkbox">Наукова література</label></li>
-                <li><label><input type="checkbox">Підручники</label></li>
+                <li><label><input type="checkbox">Clothing</label></li>
+                <li><label><input type="checkbox">Accessories</label></li>
+                <li><label><input type="checkbox">Decor</label></li>
+                <li><label><input type="checkbox">Stationery</label></li>
+                <li><label><input type="checkbox">Children's Clothing</label></li>
             </ul>
-            <button class="btn" id="applyFilters">Застосувати</button>
-            <button class="btn btn-outline" id="resetFilters">Скинути</button>
+            <button class="btn" id="applyFilters">Apply</button>
+            <button class="btn btn-outline" id="resetFilters">Reset</button>
         </aside>
         <section class="product-content">
-            <h2> Останні новинки</h2>
+            <h2> Latest News</h2>
             <div class="loader-container" id="loader">
                     <div class="spinner"></div>
                     <p>Завантаження товарів...</p>
@@ -80,7 +77,7 @@
             <div class="product" id="product-container"> 
             </div>
 
-            <h2> Мої наступні цілі </h2>
+            <h2> My Next Goals </h2>
             <div class="progect"> 
                 <div class="progect-item">
                     <h3> Ціль 1 </h3>
@@ -107,20 +104,20 @@
     </main>
 
     <aside class="aside">
-        <h2> Категорії </h2>
+        <h2> Categories </h2>
         <ul>
-            <li> Фантастика </li>
-            <li> Фентезі </li>
-            <li> Наукова література </li>
-            <li> Романи </li>
-            <li> Класика </li>
-            <li> Дитяча література </li>
+            <li> Men's Clothing </li>
+            <li> Women's Clothing </li>
+            <li> Accessories </li>
+            <li> Decor </li>
+            <li> Stationery </li>
+            <li> Children's Clothing </li>
         </ul>
     </aside>
 
     <footer id="footer" class="footer">
         <ul class="social-links">
-            <li > Phone: +380967823945 </li>
+            <li> Phone: +380967823945 </li>
             <li> Email: luhjfj@gmail.com </li>
             <li> Adress: ifols mfjols fj 24</li>
         </ul>
@@ -167,7 +164,7 @@
             <input type="email" name="email" id="email"/>
             <input type="button" class="btn" value="Subscribe"/>
         </form>
-        <p class="footer1">FOOTER: &copy; 2026 CS-25 </p>
+        <p class="footer1">FOOTER: &copy; 2026 Miscellany </p>
     </footer>
     
     <script src="./assets/js/main.js" type="module"></script>
@@ -175,18 +172,18 @@
     <div class="modal-overlay hidden" id="cartOverlay">
         <div class="modal-window">
             <div class="modal-header">
-                <h2>Ваш Кошик</h2>
+                <h2>Your Cart</h2>
                 <button class="close-btn" id="closeCartBtn">&times;</button>
             </div>
 
         
             <div class="cart-items" id="cartItemsContainer">
-                <p>Кошик порожній.</p>
+                <p>Your cart is empty.</p>
             </div>
 
             <div class="modal-footer">
-                <h3>Разом: <span id="cartTotalSum">0</span> грн</h3>
-                <a href="checkout.html" class="btn btn-primary" id="checkoutBtn">Оформити замовлення</a>
+                <h3>Total: <span id="cartTotalSum">0</span> UAH</h3>
+                <a href="checkout.html" class="btn btn-primary" id="checkoutBtn">Place Order</a>
             </div>
         </div>
     </div>

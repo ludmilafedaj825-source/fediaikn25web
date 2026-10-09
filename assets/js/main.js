@@ -1,89 +1,18 @@
-const products=[
-    {
-        id: 1,
-        title: "Я бачу, вас цікавить пітьма.",
-        author: "Ілларіон Павлюк",
-        price: 700,
-        category: "Художня література",
-        image: "https://placehold.co/300x200",
-    },
-
-    {
-        id: 2,
-        title: "Блокнот у лінійку",
-        author: "",
-        price: 200,
-        category: "Канцелярія",
-        image: "https://placehold.co/300x200",
-    },
-
-    {
-        id: 3,
-        title: "Остання подорож дівчат",
-        author: "Цукумідзу",
-        price: 180,
-        category: "Манга",
-        image: "https://placehold.co/300x200",
-    },
-
-    {
-        id: 4,
-        title: "Людина розумна",
-        author: "Ювал Ной Харарі",
-        price: 600,
-        category: "Наукова література",
-        image: "https://placehold.co/300x200",
-    },
-
-    {
-        id: 5,
-        title: "Атлас, географія, 7 клас",
-        author: "",
-        price: 250,
-        category: "Навчальні матеріали",
-        image: "https://placehold.co/100x200",
-    },
-
-    {
-        id: 6,
-        title: "Математика 4 клас 2026",
-        author: "Богданович",
-        price: 500,
-        category: "Підручники",
-        image: "https://placehold.co/100x200",
-    },
-
-    {
-        id: 7,
-        title: "Маленький принц",
-        author: "Антуан де Сент-Екзюпері",
-        price: 300,
-        category: "Дитяча література",
-        image: "https://placehold.co/100x200",
-    },
-
-    {
-        id: 8,
-        title: "Подарунковий набір «Відьмак»",
-        author: "Анджей Сапковський",
-        price: 2000,
-        category: "Подарункові набори",
-        image: "https://placehold.co/100x200",
-    },
-];
-
+let globalStoreProducts = [];
 let cart = [];
 
 const container = document.getElementById("product-container");
 
 container.addEventListener("click", (event) => {
-  if (event.target.classList.contains("btn-buy")) {
-    const productId = Number(event.target.dataset.id);
+    if (event.target.classList.contains("btn-buy")) {
+        const productId = Number(event.target.dataset.id);
 
-    const selectedProduct = products.find((p) => p.id === productId);
-
-    addToCart(selectedProduct);
-  }
+        const selectedProduct = globalStoreProducts.find((p) => p.id === productId);
+        
+        if(selectedProduct) {
+            addToCart(selectedProduct);
+        }
+    }       
 });
 
 function addToCart(product) {
@@ -116,14 +45,32 @@ function updateUI(){
     renderCartItems(); // Оновлюємо список товарів у кошику
 }
 
-function fetchProducts(){
-    return new Promise((resolve, reject)=>{
-        setTimeout(()=>{
-            resolve(products);// штучне стимулювання позитивної відповіді
+async function fetchProducts() {
+    try {
+        // Надсилаємо мережевий GET-запит
+        const response = await fetch(
+        "https://fakestoreapi.com/products?limit=8",
+        );
 
-            //reject(new Error("Помилка при завантаженні товарів"));
-        }, 1500);
-    });
+        // Перевіряємо чи статус відповіді ОК (200-299)
+        if (!response.ok) {
+        throw new Error(`HTTP помилка: ${response.status}`);
+        }
+
+        // Розпаковуємо тіло відповіді з JSON у звичайний масив JavaScript
+        const realProducts = await response.json();
+
+        // console.log("Дані з сервера:", realProducts);
+
+        // Повертаємо масив, щоб ним міг скористатися initShop()
+        return realProducts;
+    } 
+
+    catch (error) {
+        console.error("Помилка завантаження товарів:", error.message);
+        // Прокидаємо помилку далі, щоб спінер зник і користувач побачив "Помилка мережі"
+        throw error;
+    }
 }
 
 async function initShop(){
@@ -136,6 +83,7 @@ async function initShop(){
         //чекаємо півтори секунди
         const data = await fetchProducts();
 
+        globalStoreProducts = data; //записуємо дані в глобальну змінну
         //спінер хоавається, якщо відповідь від сервера позитивна
         loader.classList.add("hidden");
             //картки товарів
@@ -145,8 +93,8 @@ async function initShop(){
             <article class="product-card">
                 <img src="${product.image}" alt="${product.title}">
                 <h3>${product.title}</h3>
-                <p class="author">Автор: ${product.author || "Невідомий автор"}</p>
-                <p class="price"> ${product.price} грн </p>
+                <p class="author"> Категорія: ${product.category}</p>
+                <p class="price"> $${product.price.toFixed(2)}</p>
                 <button class="btn btn-buy" data-id="${product.id}"> Купити </button>
             </article>
             `;
@@ -202,18 +150,18 @@ function renderCartItems() {
         cartItem.classList.add("cart-item");
         cartItem.innerHTML = `
              <img src="${item.image}" alt="${item.title}" width="60" height="60">
-            <p>${item.title} — ${item.price} грн × ${item.quantity}</p>
+            <p>${item.title} — $${item.price.toFixed(2)} × ${item.quantity}</p>
             <div class="cart-item-controls">
                 <button class="qty-btn" type="button" data-action="decrease" data-id="${item.id}" aria-label="Зменшити кількість: ${item.title}">−</button>
                 <span>${item.quantity}</span>
                 <button class="qty-btn" type="button" data-action="increase" data-id="${item.id}" aria-label="Збільшити кількість: ${item.title}">+</button>
             </div>
-            <p>${item.price * item.quantity} грн</p>
+            <p>$${(item.price * item.quantity).toFixed(2)}</p>
         `;
         cartItemsContainer.appendChild(cartItem);
     });
 
-    cartTotalSum.textContent = calculateTotal();
+    cartTotalSum.textContent = calculateTotal().toFixed(2); // Оновлюємо загальну суму
 }
 
 document.getElementById("cartItemsContainer").addEventListener("click", (event) => {
