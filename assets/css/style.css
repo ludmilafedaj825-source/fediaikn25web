@@ -505,3 +505,28 @@
         background: var(--accent-color);
         color: var(--text-dark);
     }
+        
+    .favorites-zone {
+        border: 2px var(--primary-color) dashed;
+        background: var(--bg-color);
+        padding: 16px;
+        margin: 16px;
+        min-height: 80px;
+    }
+    
+    .favorites-zone.drag-over {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    }
+    .product-card.dragging {
+    opacity: 0.5;
+    }
+    
+    .fav-item {
+    padding: 4px 0;
+    }
+    
+    .hidden {
+    display: none;
+    }
+    

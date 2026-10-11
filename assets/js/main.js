@@ -1,9 +1,112 @@
 let globalStoreProducts = [];
 let cart = [];
 
-const container = document.getElementById("product-container");
+const productsContainer = document.getElementById("product-container");
 
-container.addEventListener("click", (event) => {
+async function fetchProducts() {
+    try {
+        // Надсилаємо мережевий GET-запит
+        const response = await fetch(
+        "https://fakestoreapi.com/products?limit=8",
+        );
+
+        // Перевіряємо чи статус відповіді ОК (200-299)
+        if (!response.ok) {
+        throw new Error(`HTTP помилка: ${response.status}`);
+        }
+
+        // Розпаковуємо тіло відповіді з JSON у звичайний масив JavaScript
+        const realProducts = await response.json();
+
+        // console.log("Дані з сервера:", realProducts);
+
+        // Повертаємо масив, щоб ним міг скористатися initShop()
+        return realProducts;
+    } 
+
+    catch (error) {
+        console.error("Помилка завантаження товарів:", error.message);
+        // Прокидаємо помилку далі, щоб спінер зник і користувач побачив "Помилка мережі"
+        throw error;
+    }
+}
+
+
+async function initShop(){
+    const loader = document.getElementById("loader");
+
+    loader.classList.remove("hidden");
+    productsContainer.innerHTML="";//очищення сітки
+
+    try{
+        //чекаємо півтори секунди
+        const data = await fetchProducts();
+
+        globalStoreProducts = data; //записуємо дані в глобальну змінну
+        //спінер хоавається, якщо відповідь від сервера позитивна
+        loader.classList.add("hidden");
+            //картки товарів
+        const htmlString = data
+        .map((product) => {
+            return `
+            <article class="product-card" draggable="true" data-id="${product.id}">
+                <img src="${product.image}" alt="${product.title}" draggable="false">
+                <h3>${product.title}</h3>
+                <p class="author"> Категорія: ${product.category}</p>
+                <p class="price"> $${product.price.toFixed(2)}</p>
+                <button class="btn btn-buy" data-id="${product.id}"> Купити </button>
+            </article>
+            `;
+        }).join("");
+
+        productsContainer.innerHTML = htmlString;
+    } catch (error){
+        //якщо сталася помилка сервера, реджект
+        loader.classList.add("hidden");
+        productsContainer.innerHTML = `<p class="error">Помилка: ${error.message}</p>`;
+    }
+}
+
+productsContainer.addEventListener('dragstart', (event) => {
+  if (event.target.classList.contains('product-card')) {
+    // Зберігаємо ID товару, який ми почали тягнути в спеціальний "буфер обміну" Drag-and-Drop
+    event.dataTransfer.setData('text/plain', event.target.dataset.id);
+    event.target.classList.add('dragging'); // Додаємо CSS-клас для напівпрозорості
+  }
+});
+
+productsContainer.addEventListener('dragend', (event) => {
+  if (event.target.classList.contains('product-card')) {
+    event.target.classList.remove('dragging'); // Повертаємо нормальний вигляд
+  }
+});
+
+const favoritesZone = document.getElementById('favoritesZone');
+
+// Дозволяємо кидання! Без preventDefault() подія drop не спрацює
+favoritesZone.addEventListener('dragover', (event) => {
+  event.preventDefault(); 
+  favoritesZone.classList.add('drag-over'); // Підсвічуємо зону, коли над нею тягнуть товар
+});
+
+// Коли курсор залишає зону - прибираємо підсвітку
+favoritesZone.addEventListener('dragleave', () => {
+  favoritesZone.classList.remove('drag-over'); 
+});
+
+// Обробка моменту "кидання" (відпускання миші)
+favoritesZone.addEventListener('drop', (event) => {
+  event.preventDefault();
+  favoritesZone.classList.remove('drag-over');
+
+  // Дістаємо збережений ID товару з "буфера обміну"
+  const productId = event.dataTransfer.getData('text/plain');
+       
+  // Візуалізуємо дію
+  favoritesZone.innerHTML += `<div class="fav-item">Товар #${productId}</div>`;
+});
+
+productsContainer.addEventListener("click", (event) => {
     if (event.target.classList.contains("btn-buy")) {
         const productId = Number(event.target.dataset.id);
 
@@ -45,70 +148,7 @@ function updateUI(){
     renderCartItems(); // Оновлюємо список товарів у кошику
 }
 
-async function fetchProducts() {
-    try {
-        // Надсилаємо мережевий GET-запит
-        const response = await fetch(
-        "https://fakestoreapi.com/products?limit=8",
-        );
-
-        // Перевіряємо чи статус відповіді ОК (200-299)
-        if (!response.ok) {
-        throw new Error(`HTTP помилка: ${response.status}`);
-        }
-
-        // Розпаковуємо тіло відповіді з JSON у звичайний масив JavaScript
-        const realProducts = await response.json();
-
-        // console.log("Дані з сервера:", realProducts);
-
-        // Повертаємо масив, щоб ним міг скористатися initShop()
-        return realProducts;
-    } 
-
-    catch (error) {
-        console.error("Помилка завантаження товарів:", error.message);
-        // Прокидаємо помилку далі, щоб спінер зник і користувач побачив "Помилка мережі"
-        throw error;
-    }
-}
-
-async function initShop(){
-    const loader = document.getElementById("loader");
-
-    loader.classList.remove("hidden");
-    container.innerHTML="";//очищення сітки
-
-    try{
-        //чекаємо півтори секунди
-        const data = await fetchProducts();
-
-        globalStoreProducts = data; //записуємо дані в глобальну змінну
-        //спінер хоавається, якщо відповідь від сервера позитивна
-        loader.classList.add("hidden");
-            //картки товарів
-        const htmlString = data
-        .map((product) => {
-            return `
-            <article class="product-card">
-                <img src="${product.image}" alt="${product.title}">
-                <h3>${product.title}</h3>
-                <p class="author"> Категорія: ${product.category}</p>
-                <p class="price"> $${product.price.toFixed(2)}</p>
-                <button class="btn btn-buy" data-id="${product.id}"> Купити </button>
-            </article>
-            `;
-        }).join("");
-
-        container.innerHTML = htmlString;
-    } catch (error){
-        //якщо сталася помилка сервера, реджект
-        loader.classList.add("hidden");
-        container.innerHTML = `<p class="error">Помилка: ${error.message}</p>`;
-    }
-}
-
-const cartButton = document.querySelector(".btn-cart"); // Ваша кнопка в Header з SVG (ПР №7)
+const cartButton = document.querySelector(".btn-cart");
 const cartOverlay = document.getElementById("cartOverlay");
 const closeBtn = document.getElementById("closeCartBtn");
 const cartTotalSum = document.getElementById("cartTotalSum");
@@ -116,7 +156,7 @@ const cartTotalSum = document.getElementById("cartTotalSum");
 // Функція відкриття
 function openCartModal() {
   cartOverlay.classList.remove("hidden");
-  renderCartItems(); // Оновлюємо список перед тим як показати
+  renderCartItems(); // Оновлення списку
 }
 
 // Функція закриття
@@ -124,7 +164,7 @@ function closeCartModal() {
   cartOverlay.classList.add("hidden");
 }
 
-// Вішаємо слухачі
+// Вішання слухачів
 cartButton.addEventListener("click", openCartModal);
 closeBtn.addEventListener("click", closeCartModal);
 
